@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="window">
+    <div class="profile-name" >{{ result['name'] }}</div>
+    <table id="full_profile_table">
+        <tr>
+          <td>ID</td>
+          <td>{{ result['id'] }}</td>
+        </tr>
+        <tr>
+          <td>Connection</td>
+          <td>{{ result['connection'] }}</td>
+        </tr>
+        <tr>
+          <td>Employer</td>
+          <td>{{ result['employer'] }}</td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td>{{ result['role'] }}</td>
+        </tr>
+        <tr>
+          <td>Contact</td>
+          <td>{{ result['contact'] }}</td>
+        </tr>
+        <tr>
+          <td>Notes</td>
+          <td>{{ result['notes'] }}</td>
+        </tr>
+        <tr>
+          <td>Tags</td>
+          <td>{{ result['tags'] }}</td>
+        </tr>
+    </table>
+  </div>
+{% endblock %}

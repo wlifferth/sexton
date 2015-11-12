@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sexton</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <header class="header">
+    <a class="logo" href="{{ url_for('index') }}">
+      <img src="../static/img/kecDB-logo.png" class="logo">
+    </a>
+    <nav class="nav">
+      <ul>
+      <li><a href="{{ url_for('index') }}">Home</a></li>
+      <li><a href="{{ url_for('insert') }}">Insert</a></li>
+      </ul>
+    </nav>
+  </header>
+  <body class="wrapper">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="window-container">
+          {% for message in messages %}
+            <div class="notification window">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

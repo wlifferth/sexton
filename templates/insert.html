@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="window">
+  <h1>Single Entry</h1>
+  <p>Enter in the data for a single entry then hit "Insert"</p>
+  <form action="{{ url_for('create_person') }}" method="post">
+    <table>
+      <tr>
+        <td><label for="name">Name </label></td>
+        <td><input type="text" id="name" name="name"></td>
+      </tr>
+      <tr>
+        <td><label for="connection">Connection </label></td>
+        <td><input type="text" id="connection" name="connection"></td>
+      </tr>
+      <tr>
+        <td><label for="employer">Employer </label></td>
+        <td><input type="text" id="employer" name="employer"></td>
+      </tr>
+      <tr>
+        <td><label for="role">Role </label></td>
+        <td><input type="text" id="role" name="role"></td>
+      </tr>
+      <tr>
+        <td><label for="city">City </label></td>
+        <td><input type="text" id="city" name="city"></td>
+      </tr>
+      <tr>
+        <td><label for="contact">Contact </label></td>
+        <td><input type="text" id="contact" name="contact"></td>
+      </tr>
+      <tr>
+        <td><label for="notes">Notes </label></td>
+        <td><textarea id="notes" name="notes"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="tags">Tags </label></td>
+        <td><textarea id="tags" name="tags"></textarea></td>
+      </tr>
+    </table>
+    <input type="submit" class="half-window responsive insert single" value="Insert" name="insert-person">
+  </form>
+</div>
+{% endblock %}
