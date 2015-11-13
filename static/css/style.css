@@ -76,7 +76,10 @@ input[type=submit] {
 .header {background: #242424; //border: 20px solid #aaaaaa;}
 .header nav {float: right; top: 0; right: 0; margin: 0 5vw 0 0; position: relative; left: 15px; z-index: 99999999;}
 .header nav li {display: inline-block; margin: 0; list-style: none;}
-.header { max-height: 12vw; }
+.header {
+  max-height: 12vw;
+  margin-bottom: 20px;
+}
 
 .header .nav li a {
   font-size: 2vw;
