@@ -5,6 +5,7 @@ from flask import url_for
 from flask import request
 from flask import redirect
 from flask import flash
+from flask import session
 
 from models import *
 from search_ranking import *
@@ -96,8 +97,32 @@ def create_person():
         notes = form_data['notes'],
         tags = form_data['tags']
     )
-    flash(form_data['name'] + ' successfully added to database!')
+    flash(form_data['name'] + " successfully added to database!")
     return redirect(url_for('insert'))
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    # login user and return to index if username/password are valid, else return login page
+    if request.method == 'POST':
+        try:
+            user = User.select().where(User.username == request.form['username']).get()
+        except:
+            flash("That user doesn't look familiar. Either there's a typo, or you be triflin'.")
+            return render_template('login.html')
+        if user.password == request.form['password']:
+            session['username'] = request.form['username']
+            flash("Hey there {}! Welcome to the KEC database, The Sexton.".format(session['username']))
+            return render_template('index.html')
+        else:
+            flash("That's not the correct password for that username.")
+            return render_template('login.html')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
