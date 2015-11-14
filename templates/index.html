@@ -24,10 +24,10 @@
     </div>
     {% for result in results %}
       <a href="profile/{{ result['id'] }}" class="responsive half-window query-box">
+        <div id="name-field">
+          {{ result['name'] }}
+        </div>
         <table>
-          <tr id="name-field">
-            {{ result['name'] }}
-          </tr>
           <tr id="employer-field">
             <td>Employer: </t>
             <td>{{ result['employer'] }}</td>
