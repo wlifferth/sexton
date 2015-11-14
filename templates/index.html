@@ -15,13 +15,7 @@
       <input class="half-window responsive" type="submit" value="submit" style="display: none" name="submit-query" />
     </form>
   </div>
-  {% if results == None %}
-  {% elif not results %}
-    <div class="window">No database entries matched your query "{{ keyphrase }}"</div>
-  {% else %}
-    <div class="window notification">
-      Returned {{ results_len }} {% if results_len != 1 %} results {% else %} result {% endif %}
-    </div>
+  {% if results != None %}
     {% for result in results %}
       <a href="profile/{{ result['id'] }}" class="responsive half-window query-box">
         <div id="name-field">

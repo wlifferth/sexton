@@ -48,6 +48,7 @@ textarea {
   margin: 2%;
   border-radius: 5px;
   width: 100%;
+  max-width: 80%;
 }
 
 input[type="text"]:focus,
@@ -293,14 +294,21 @@ div.half-window {
 }
 
 .notification {
-  margin-left: 2%;
-  margin-right: 2%;
   width: 96%;
   background-color: #32CC32;
-  -webkit-box-shadow: 0 3px 0 0 rgba(100, 200, 100,1);
+  -webkit-box-shadow: 0 3px 0 0 rgba(60, 180, 60,1);
+  -moz-box-shadow: 0 3px 0 0 rgba(60, 180, 60, 1);
   box-shadow: 0 3px 0 0 rgba(60, 180, 60,1);
   color: #fff;
   float: left;
+  padding: 20px;
+  font-size: 1.4em;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 20px 2%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
 

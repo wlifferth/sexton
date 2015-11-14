@@ -18,11 +18,9 @@
   <div class="window-container">
   {% with messages = get_flashed_messages() %}
     {% if messages %}
-      <div class="window-container">
-        {% for message in messages %}
-          <div class="notification window">{{ message }}</div>
-        {% endfor %}
-      </div>
+      {% for message in messages %}
+        <div class="notification">{{ message }}</div>
+      {% endfor %}
     {% endif %}
   {% endwith %}
     {% block content %}{% endblock %}

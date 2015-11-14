@@ -75,13 +75,13 @@ def search(form_data):
         ):
             if person.__dict__() not in results:
                 results.append(person.__dict__())
+    results = search_ranking(results=results, keywords=keywords, limit=form_data['limit'])
     if len(results) == 0:
         flash("Sorry, no results turned up for \"{}\"".format(keyphrase))
     elif len(results) == 1:
         flash("Returned 1 result for \"{}\"".format(keyphrase))
     else:
         flash("Returned {} results for \"{}\"".format(len(results), keyphrase))
-    results = search_ranking(results=results, keywords=keywords, limit=form_data['limit'])
     return results
 
 @app.route('/create_person', methods=['POST', 'GET'])
