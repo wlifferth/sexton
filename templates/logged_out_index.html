@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block menu_options %}
+<li><a href="{{ url_for('login') }}">Login</a></li>
+{% endblock %}
+{% block content %}
+  <div class="window">
+    Enter in your query /&#x02C8;kw&#x026A;&#x0259;ri/ then hit submit.
+    <form action="{{ url_for('index') }}" method="post" name="query-form">
+      <div id="search-bar"><input type="text" name="keyphrase" autofocus placeholder="Search" value="{{ keyphrase }}"/></div>
+      <div id="limit">
+        <select name="limit" value="{{ limit }}">
+          <option label disabled>Limit</option>
+          <option {% if limit == 10 %} selected {% endif %} value=10>10</option>
+          <option {% if limit == 20 %} selected {% endif %} value=20>20</option>
+          <option {% if limit == 100 %} selected {% endif %} value=100>100</option>
+        </select>
+      </div>
+      <input class="half-window responsive" type="submit" value="submit" style="display: none" name="submit-query" />
+    </form>
+  </div>
+  {% if results != None %}
+    {% for result in results %}
+      <a href="profile/{{ result['id'] }}" class="responsive half-window query-box">
+        <div id="name-field">
+          {{ result['name'] }}
+        </div>
+        <table>
+          <tr id="employer-field">
+            <td>Employer: </t>
+            <td>{{ result['employer'] }}</td>
+          </tr>
+          <tr id="role-field">
+            <td>Role: </t>
+            <td>{{ result['role'] }}</td>
+          </tr>
+          <tr id="id-field">
+          <td>{{ result['id_string'] }}</td>
+          </tr>
+        </table>
+        <div id="score-box"><div>{{ result['score'] }}</div></div>
+      </a>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

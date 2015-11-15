@@ -32,9 +32,10 @@ def index(results=None):
             result['id_string'] = "{:0>6d}".format(result['id'])
     else:
         results = []
-        return render_template('index.html', keyphrase=keyphrase, limit=limit, results=None, results_len=None)
-    return render_template('index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
-
+    if 'username' in session.keys():
+        return render_template('index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
+    else:
+        return render_template('logged_out_index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
 
 
 @app.route('/profile/<int:person_id>', methods=['POST', 'GET'])
@@ -47,9 +48,13 @@ def profile(person_id):
     except:
         return render_template('404.html')
 
+
 @app.route('/insert', methods=['POST', 'GET'])
 def insert():
+    if 'username' not in session.keys():
+        return redirect(url_for('index'))
     return render_template('insert.html')
+
 
 @app.route('/search', methods=['POST', 'GET'])
 def search(form_data):
@@ -85,6 +90,7 @@ def search(form_data):
         flash("Returned {} results for \"{}\"".format(len(results), keyphrase))
     return results
 
+
 @app.route('/create_person', methods=['POST', 'GET'])
 def create_person():
     initialize_db()
@@ -99,6 +105,7 @@ def create_person():
     )
     flash(form_data['name'] + " successfully added to database!")
     return redirect(url_for('insert'))
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -118,11 +125,13 @@ def login():
             return render_template('login.html')
     return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return redirect(url_for('index'))
+    flash("Logged out successfully")
+    return index()
 
 
 if __name__ == '__main__':

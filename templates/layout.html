@@ -10,8 +10,11 @@
     </a>
     <nav class="nav">
       <ul>
+      {% block menu_options %}
       <li><a href="{{ url_for('index') }}">Home</a></li>
       <li><a href="{{ url_for('insert') }}">Insert</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+      {% endblock %}
       </ul>
     </nav>
   </header>
