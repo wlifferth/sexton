@@ -193,6 +193,11 @@ input[type=submit] {
   float: left;
 }
 
+#full-width-search-bar {
+  max-width: 100%;
+  width: 100%;
+}
+
 #limit {
   max-width: 10%;
   display: block;
@@ -361,7 +366,7 @@ Full Profile.php
 
   /*
   ========================================================
-  Insert.php
+  Insert
   ========================================================*/
 
 .insert.single {

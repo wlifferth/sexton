@@ -1,4 +1,7 @@
-{% extends "logged_out_layout.html" %}
+{% extends "layout.html" %}
+{% block menu_options %}
+<li><a href="{{ url_for('login') }}">Login</a></li>
+{% endblock %}
 {% block content %}
 <div class="window">
   <h1>

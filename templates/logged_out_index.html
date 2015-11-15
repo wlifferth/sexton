@@ -1,12 +1,15 @@
+{% from 'macros.html' import get_menu_options %}
 {% extends "layout.html" %}
 {% block menu_options %}
-<li><a href="{{ url_for('login') }}">Login</a></li>
+{{ get_menu_options(logged_in=False) }}
 {% endblock %}
 {% block content %}
   <div class="window">
     Enter in your query /&#x02C8;kw&#x026A;&#x0259;ri/ then hit submit.
     <form action="{{ url_for('index') }}" method="post" name="query-form">
-      <div id="search-bar"><input type="text" name="keyphrase" autofocus placeholder="Search" value="{{ keyphrase }}"/></div>
+      <div id="full-width-search-bar"><input type="text" name="keyphrase" autofocus placeholder="Search" value="{{ keyphrase }}"/></div>
+      <input type="hidden" name="limit" value=10>
+      <!--
       <div id="limit">
         <select name="limit" value="{{ limit }}">
           <option label disabled>Limit</option>
@@ -15,6 +18,7 @@
           <option {% if limit == 100 %} selected {% endif %} value=100>100</option>
         </select>
       </div>
+      -->
       <input class="half-window responsive" type="submit" value="submit" style="display: none" name="submit-query" />
     </form>
   </div>

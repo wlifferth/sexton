@@ -40,11 +40,15 @@ def index(results=None):
 
 @app.route('/profile/<int:person_id>', methods=['POST', 'GET'])
 def profile(person_id):
+    if 'username' in session.keys():
+        logged_in = True
+    else:
+        logged_in = False
     profile = {}
     initialize_db()
     try:
         profile = Person.get(Person.id == person_id).__dict__()
-        return render_template('profile.html', result=profile)
+        return render_template('profile.html', result=profile, logged_in=logged_in)
     except:
         return render_template('404.html')
 

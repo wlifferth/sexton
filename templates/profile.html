@@ -1,4 +1,8 @@
+{% from 'macros.html' import get_menu_options %}
 {% extends "layout.html" %}
+{% block menu_options %}
+{{ get_menu_options(logged_in) }}
+{% endblock %}
 {% block content %}
   <div class="window">
     <div class="profile-name" >{{ result['name'] }}</div>

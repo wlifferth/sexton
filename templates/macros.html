@@ -1,0 +1,9 @@
+{% macro get_menu_options(logged_in=False) %}
+{% if logged_in %}
+<li><a href="{{ url_for('index') }}">Home</a></li>
+<li><a href="{{ url_for('insert') }}">Insert</a></li>
+<li><a href="{{ url_for('logout') }}">Logout</a></li>
+{% else %}
+<li><a href="{{ url_for('login') }}">Login</a></li>
+{% endif %}
+{% endmacro %}
