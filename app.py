@@ -16,30 +16,30 @@ app.secret_key = '}0QRVXTN2y6zrlzm5Yr('
 
 @app.route('/', methods=['POST', 'GET'])
 def index(results=None):
+    if 'username' not in session.keys():
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
     if request.method == 'POST':
         form_data = request.form
         results = search(form_data)
-    try:
         keyphrase = request.form['keyphrase']
-    except:
-        keyphrase = ""
-    try:
         limit = request.form['limit']
-    except:
+    else:
+        keyphrase = ""
         limit = 10
     if results:
         for result in results:
             result['id_string'] = "{:0>6d}".format(result['id'])
     else:
         results = []
-    if 'username' in session.keys():
-        return render_template('index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
-    else:
-        return render_template('logged_out_index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
+    return render_template('index.html', keyphrase=keyphrase, limit=limit, results=results, results_len=len(results))
 
 
 @app.route('/profile/<int:person_id>', methods=['POST', 'GET'])
 def profile(person_id):
+    if 'username' not in session.keys():
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
     if 'username' in session.keys():
         logged_in = True
     else:
@@ -56,12 +56,16 @@ def profile(person_id):
 @app.route('/insert', methods=['POST', 'GET'])
 def insert():
     if 'username' not in session.keys():
-        return redirect(url_for('index'))
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
     return render_template('insert.html')
 
 
 @app.route('/search', methods=['POST', 'GET'])
 def search(form_data):
+    if 'username' not in session.keys():
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
     initialize_db()
     keyphrase = request.form['keyphrase']
     keywords = keyphrase.split()
@@ -97,6 +101,9 @@ def search(form_data):
 
 @app.route('/create_person', methods=['POST', 'GET'])
 def create_person():
+    if 'username' not in session.keys():
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
     initialize_db()
     Person.create(
         name = form_data['name'],
@@ -135,7 +142,7 @@ def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
     flash("Logged out successfully")
-    return index()
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
