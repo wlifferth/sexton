@@ -8,7 +8,7 @@ from flask import flash
 from flask import session
 
 from models import *
-from search_ranking import *
+from search import *
 
 app = Flask(__name__)
 app.secret_key = '}0QRVXTN2y6zrlzm5Yr('
@@ -53,50 +53,24 @@ def profile(person_id):
         return render_template('404.html')
 
 
+@app.route('/edit/<int:person_id>', methods=['POST', 'GET'])
+def edit(person_id):
+    if 'username' not in session.keys():
+        flash("You need to be logged in to access this page.")
+        return redirect(url_for('login'))
+    try:
+        profile = Person.get(Person.id == person_id).__dict__()
+        return render_template('profile.html', result=profile, logged_in=logged_in)
+    except:
+        return render_template('404.html')
+
+
 @app.route('/insert', methods=['POST', 'GET'])
 def insert():
     if 'username' not in session.keys():
         flash("You need to be logged in to access this page.")
         return redirect(url_for('login'))
     return render_template('insert.html')
-
-
-@app.route('/search', methods=['POST', 'GET'])
-def search(form_data):
-    if 'username' not in session.keys():
-        flash("You need to be logged in to access this page.")
-        return redirect(url_for('login'))
-    initialize_db()
-    keyphrase = request.form['keyphrase']
-    keywords = keyphrase.split()
-    results = []
-    for keyword in keywords:
-        try:
-            id_int = int(keyword)
-        except:
-            id_int = 0
-        for person in Person.select().where(
-            (
-                Person.name
-                .concat(Person.connection)
-                .concat(Person.employer)
-                .concat(Person.role)
-                .concat(Person.contact)
-                .concat(Person.notes)
-                .concat(Person.tags)
-            ).contains(keyword) |
-            (Person.id == id_int)
-        ):
-            if person.__dict__() not in results:
-                results.append(person.__dict__())
-    results = search_ranking(results=results, keywords=keywords, limit=form_data['limit'])
-    if len(results) == 0:
-        flash("Sorry, no results turned up for \"{}\"".format(keyphrase))
-    elif len(results) == 1:
-        flash("Returned 1 result for \"{}\"".format(keyphrase))
-    else:
-        flash("Returned {} results for \"{}\"".format(len(results), keyphrase))
-    return results
 
 
 @app.route('/create_person', methods=['POST', 'GET'])
