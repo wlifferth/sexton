@@ -40,15 +40,11 @@ def profile(person_id):
     if 'username' not in session.keys():
         flash("You need to be logged in to access this page.")
         return redirect(url_for('login'))
-    if 'username' in session.keys():
-        logged_in = True
-    else:
-        logged_in = False
     profile = {}
     initialize_db()
     try:
         profile = Person.get(Person.id == person_id).__dict__()
-        return render_template('profile.html', result=profile, logged_in=logged_in)
+        return render_template('profile.html', result=profile)
     except:
         return render_template('404.html')
 
@@ -58,11 +54,38 @@ def edit(person_id):
     if 'username' not in session.keys():
         flash("You need to be logged in to access this page.")
         return redirect(url_for('login'))
+    profile = {}
+    initialize_db()
     try:
         profile = Person.get(Person.id == person_id).__dict__()
-        return render_template('profile.html', result=profile, logged_in=logged_in)
+        return render_template('edit.html', result=profile)
     except:
         return render_template('404.html')
+
+@app.route('/edit_person', methods=['GET', 'POST'])
+def edit_person():
+    try:
+        person = Person.get(Person.id == request.form['id'])
+        """
+        person['connection'] = request.form['connection']
+        person['employer'] = request.form['employer']
+        person['role'] = request.form['role']
+        person['city'] = request.form['city']
+        person['contact'] = request.form['contact']
+        person['notes'] = request.form['notes']
+        person['tags'] = request.form['tags']
+        """
+        person.connection = request.form['connection']
+        person.employer = request.form['employer']
+        person.role = request.form['role']
+        person.city = request.form['city']
+        person.contact = request.form['contact']
+        person.notes = request.form['notes']
+        person.tags = request.form['tags']        
+        person.save()
+        return redirect(url_for('profile', person_id=request.form['id']))
+    except:
+        return "Couldn't update record"
 
 
 @app.route('/insert', methods=['POST', 'GET'])

@@ -205,10 +205,6 @@ input[type=submit] {
   float: left;
 }
 
-form .half-window {
-  background-color: #242424;
-  width: 40%;
-}
 
 table {
   align: center;
@@ -369,12 +365,17 @@ Full Profile.php
   Insert
   ========================================================*/
 
-.insert.single {
+.button {
+  background-color: #242424;
+  width: 40%;
+}
+
+.button.single {
   margin-left: 30%;
   margin-right: 30%;
 }
 
-.insert.double {
+.button.double {
   margin-left: 5%;
   margin-right: 5%;
 }

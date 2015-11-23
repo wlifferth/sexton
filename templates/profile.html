@@ -1,7 +1,7 @@
 {% from 'macros.html' import get_menu_options %}
 {% extends "layout.html" %}
 {% block menu_options %}
-{{ get_menu_options(logged_in) }}
+{{ get_menu_options(logged_in=True) }}
 {% endblock %}
 {% block content %}
   <div class="window">
@@ -36,5 +36,6 @@
           <td>{{ result['tags'] }}</td>
         </tr>
     </table>
+    <a href="/edit/{{ result['id'] }}" class="half-window responsive button single">Edit</a>
   </div>
 {% endblock %}
