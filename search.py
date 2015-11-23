@@ -11,12 +11,13 @@ def create_blob(this_dict):
     for key in this_dict:
         if ((key != 'id') and (key != 'score')):
             blob += ' ' + this_dict[key] + ' '
+        elif key == 'id':
+            blob += ' ' + str(this_dict[key]) + ' '
     return blob.lower()
 
 def search_ranking(results, keywords, limit):
     for result in results:
         blob = create_blob(result)
-        print(blob)
         for keyword in keywords:
             if keyword.lower() in blob:
                 result['score'] +=  20
@@ -27,8 +28,10 @@ def search_ranking(results, keywords, limit):
                 result['score'] += 5
             if keyword.lower() in result['role'].lower():
                 result['score'] += 5
+            if keyword.lower() == str(result['id']):
+                result['score'] += 20
 
-            result['score'] += blob.count(' ' + keyword.lower() + ' ')
+            result['score'] += 2 * blob.count(' ' + keyword.lower() + ' ')
 
             result['score'] += blob.count(keyword)
 

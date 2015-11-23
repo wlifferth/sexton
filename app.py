@@ -104,7 +104,7 @@ def login():
         if user.password == request.form['password']:
             session['username'] = request.form['username']
             flash("Hey there {}! Welcome to the KEC database, The Sexton.".format(session['username']))
-            return render_template('index.html')
+            return redirect(url_for('index'))
         else:
             flash("That's not the correct password for that username.")
             return render_template('login.html')
