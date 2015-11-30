@@ -11,35 +11,35 @@
         <tr>
           <input type=hidden name='id' value="{{ result['id'] }}">
           <td>ID</td>
-          <td></td>
+          <td>{{ result['id'] }}</td>
         </tr>
         <tr>
-          <td>Connection</td>
-          <td><input type=text name="connection" value="{{ result['connection'] }}"></td>
+          <td><label for="connection">Connection</label></td>
+          <td><input type=text name="connection" id="connection" value="{{ result['connection'] }}"></td>
         </tr>
         <tr>
-          <td>Employer</td>
-          <td><input type=text name="employer" value="{{ result['employer'] }}"></td>
+          <td><label for="employer">Employer</label></td>
+          <td><input type=text name="employer" id="employer" value="{{ result['employer'] }}"></td>
         </tr>
         <tr>
-          <td>Role</td>
-          <td><input type=text name="role" value="{{ result['role'] }}"></td>
+          <td><label for="role">Role</label></td>
+          <td><input type=text name="role" id="role" value="{{ result['role'] }}"></td>
         </tr>
         <tr>
-          <td>City</td>
-          <td><input type=text name="city" value="{{ result['city'] }}"></td>
+          <td><label for="city">City</label></td>
+          <td><input type=text name="city" id="city" value="{{ result['city'] }}"></td>
         </tr>
         <tr>
-          <td>Contact</td>
-          <td><input type=text name="contact" value="{{ result['contact'] }}"></td>
+          <td><label for="contact">Contact</label></td>
+          <td><input type=text name="contact" id="contact" value="{{ result['contact'] }}"></td>
         </tr>
         <tr>
-          <td>Notes</td>
-          <td><input type=text name="notes" value="{{ result['notes'] }}"></td>
+          <td><label for="notes">Notes</label></td>
+          <td><textarea name="notes" id="notes">{{ result['notes'] }}</textarea></td>
         </tr>
         <tr>
-          <td>Tags</td>
-          <td><input type=text name="tags" value="{{ result['tags'] }}"></td>
+          <td><label for="tags">Tags</label></td>
+          <td><textarea name="tags" id="tags">{{ result['tags'] }}</textarea></td>
         </tr>
     </table>
     <input type=submit name="submit-edits" class="half-window responsive button single" value="Submit Edits">

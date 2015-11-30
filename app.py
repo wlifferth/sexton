@@ -81,7 +81,7 @@ def edit_person():
         person.city = request.form['city']
         person.contact = request.form['contact']
         person.notes = request.form['notes']
-        person.tags = request.form['tags']        
+        person.tags = request.form['tags']
         person.save()
         return redirect(url_for('profile', person_id=request.form['id']))
     except:
@@ -102,6 +102,7 @@ def create_person():
         flash("You need to be logged in to access this page.")
         return redirect(url_for('login'))
     initialize_db()
+    form_data = request.form
     Person.create(
         name = form_data['name'],
         connection = form_data['connection'],

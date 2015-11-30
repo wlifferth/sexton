@@ -10,7 +10,7 @@ def create_blob(this_dict):
     blob = ""
     for key in this_dict:
         if ((key != 'id') and (key != 'score')):
-            blob += ' ' + this_dict[key] + ' '
+            blob += ' ' + this_dict[key].lower().strip("\t\n") + ' '
         elif key == 'id':
             blob += ' ' + str(this_dict[key]) + ' '
     return blob.lower()
@@ -18,22 +18,24 @@ def create_blob(this_dict):
 def search_ranking(results, keywords, limit):
     for result in results:
         blob = create_blob(result)
+        print(blob)
+        print('')
         for keyword in keywords:
-            if keyword.lower() in blob:
-                result['score'] +=  20
+            if (' ' + keyword.lower() + ' ') in blob:
+                result['score'] +=  10
 
             if keyword.lower() in result['name'].lower():
-                result['score'] += 10
+                result['score'] += 5
             if keyword.lower() in result['employer'].lower():
-                result['score'] += 5
+                result['score'] += 2
             if keyword.lower() in result['role'].lower():
-                result['score'] += 5
+                result['score'] += 2
             if keyword.lower() == str(result['id']):
-                result['score'] += 20
+                result['score'] += 10
 
-            result['score'] += 2 * blob.count(' ' + keyword.lower() + ' ')
+            result['score'] += blob.count(' ' + keyword.lower() + ' ')
 
-            result['score'] += blob.count(keyword)
+            result['score'] += .5 * blob.count(keyword)
 
     results = sorted(results, key=itemgetter('score'), reverse=True)
     if len(results) > int(limit):
